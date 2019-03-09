@@ -9,7 +9,7 @@ class Painter extends CustomPainter {
   @override
   void paint(Canvas canvas, _) {
     Paint paint = Paint()
-      ..color = Colors.black
+      ..color = settings.brushColor
       ..strokeCap = StrokeCap.round
       ..strokeWidth = settings.brushWidth;
 

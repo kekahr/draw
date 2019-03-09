@@ -7,7 +7,7 @@ class PainterSettings {
     this.brushWidth = 5;
   }
 
-  PainterSettings.from(PainterSettings settings, Offset newOffset) {
+  PainterSettings.from(PainterSettings settings, {@required Offset newOffset}) {
     this.points = List.from(settings.points)..add(newOffset);
     this.brushColor = settings.brushColor;
     this.brushWidth = settings.brushWidth;

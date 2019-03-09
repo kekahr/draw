@@ -1,3 +1,4 @@
+import 'package:draw/brush_color_dialog.dart';
 import 'package:draw/brush_width_dialog.dart';
 import 'package:draw/fab_menu.dart';
 import 'package:draw/fab_menu_item_data.dart';
@@ -34,8 +35,8 @@ class _DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
                 RenderBox renderBox = context.findRenderObject();
                 Offset localOffset =
                     renderBox.globalToLocal(details.globalPosition);
-                painterSettings =
-                    PainterSettings.from(painterSettings, localOffset);
+                painterSettings = PainterSettings.from(painterSettings,
+                    newOffset: localOffset);
               });
             },
             onPanEnd: (_) => painterSettings.points.add(null),
@@ -51,6 +52,7 @@ class _DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
           menuList: [
             FABMenuItemData(icon: Icons.clear, callback: clearCanvas),
             FABMenuItemData(icon: Icons.lens, callback: changeBrushWidth),
+            FABMenuItemData(icon: Icons.color_lens, callback: changeBrushColor),
           ],
         ));
   }
@@ -65,6 +67,16 @@ class _DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
     if (newWidth != null) {
       setState(() {
         painterSettings.brushWidth = newWidth;
+      });
+    }
+  }
+
+  Future<void> changeBrushColor() async {
+    Color newColor =
+        await showDialog(context: context, builder: (context) => ColorDialog());
+    if (newColor != null) {
+      setState(() {
+        painterSettings.brushColor = newColor;
       });
     }
   }
